@@ -26,10 +26,52 @@ body {
         }
     }
 
-    .hourly-display {
-        display: flex;
-        overflow: auto;
+    hr {
+        margin: 30px;
     }
+
+    .current-day-time {
+        display: flex;
+        .btn-left, .btn-right {
+            width: 50px;
+            background-image: url("./assets/arrowicon.svg");
+            background-repeat: no-repeat;
+            background-size: 15px;
+            background-position: center;
+        }
+
+        .btn-right {
+            transform: scaleX(-1);
+        }
+
+        .hourly-display {
+            box-sizing: border-box;
+            display: flex;
+            overflow: auto;
+            gap: 10px;
+            text-align: center;
+            width: 100%;
+            
+           
+            > img {
+                width: 20px;
+            }
+    
+            > * {
+                border-radius: 8px;
+                background-image: linear-gradient(125deg ,rgba(0, 0, 0, 0.5), transparent);
+                .single-icon {
+                    height: 20px;
+                }
+            }
+    
+            .single-hour-cont {
+                width: 200px;
+            }
+    
+        }
+    }
+
 }
 
 
@@ -99,3 +141,14 @@ body {
 .icon {
     width: 100px;
 }
+
+.hourly-display::-webkit-scrollbar {
+    background-color: transparent;
+    height: 10px;
+ }
+
+ .hourly-display::-webkit-scrollbar-thumb {
+     background-color: rgba(255,255,255, 0.7);
+     border-radius: 10px;
+     width: 5px;
+ }

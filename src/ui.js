@@ -31,8 +31,15 @@ function pageStartUp(){
         </div>
     </div>
         <hr>
-      <div class="hourly-display">
-            
+      <div class="current-day-time">
+            <div class='btn-left'>
+            </div>
+            <div class='hourly-display'>
+            </div>
+            <div class='btn-right'>
+            </div>
+      </div>
+      <div class='future-cont'>
       </div>
       `
 
@@ -67,14 +74,19 @@ export default function updateHtml(apiData){
     let str = apiData.forecast.forecastday[0].hour.reduce(
         (accu, curr) => accu += `
         <div class='single-hour-cont'>
-            <div>${curr.time}</div>
+            <div>${curr.time.match(/.{5}$/g)}</div>
+            <img src=${curr.condition.icon}>
+            <div>
+                <img class='single-icon' src=${placeholderIcon}><span>${curr.chance_of_rain} %</span>
+            </div>
+            <div>
+                <img class='single-icon'src=${placeholderIcon}><span>${curr.feelslike_f} \u00B0</span>
+            </div>
         </div>
         `, ""
     )
     
     document.querySelector(".hourly-display").innerHTML = str;
-
-
 }
 
 pageStartUp();
