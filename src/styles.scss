@@ -1,0 +1,101 @@
+body {
+    background-image: url("./assets/bg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
+}
+
+.main {
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(100px);
+    width: 600px;
+    margin: auto;
+    height: 700px;
+    border-radius: 30px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.8);
+
+    .search-cont {
+        padding: 40px;
+        display: flex;
+        justify-content: center;
+
+        .loc-inp {
+            border-radius: 20px;
+            height: 20px;
+            width: 230px;
+        }
+    }
+
+    .hourly-display {
+        display: flex;
+        overflow: auto;
+    }
+}
+
+
+.result-cont {
+    display: flex;
+    justify-content: center;
+
+    .result-p2 {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+
+        .loc-text {
+            font-size: 30px;
+            font-weight: 600;
+        }
+
+        .loc-time-text {
+            font-size: 12px;
+        }
+
+        > * {
+            margin: 0;
+        }
+
+        > h2 {
+            font-size: 30px;
+        }
+
+        .time-cont span {
+            font-size: 11px;
+        }
+
+        span {
+            font-size: 15px;
+        }
+
+        .sub-info-cont {
+            > img {
+                width: 15px;
+            }
+
+            > span {
+                font-size: 13px;
+            }
+        }
+
+        .astro-cont {
+            > img {
+                width: 15px;
+            }
+        }
+
+
+        .forecast-cont {
+            display: flex;
+            align-items: center;
+            
+            h3 {
+                margin: 0;
+                font-size: 25px;
+            }
+        }
+    }
+}
+
+.icon {
+    width: 100px;
+}

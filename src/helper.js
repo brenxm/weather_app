@@ -1,14 +1,30 @@
-
-
-export default function getApiData(input){
-const url = `https://api.weatherapi.com/v1/forecast.json?key=338055b098954be694d181131222111&q=${ input }&days=1&aqi=no&alerts=no`;
-
+async function getData(url){
     try {
-        fetch(url)
-        .then( response => response.json() )
-        .then( response => console.log(response) );
-    }
-    catch(err) {
-        console.log(err);
+        let response = await fetch(url);
+        return response.json();
+    } catch (error) {
+        console.log("reached catch");
+        return console.error(err);
     }
 }
+
+// Function to retrieve current location of user if user allowed by user
+    //converting a callback based function to promise
+function getLocation(){
+    return new Promise( (resolve, reject)=> {
+        navigator.geolocation.getCurrentPosition(
+            loc => {
+                resolve(`${loc.coords.latitude},${loc.coords.longitude}`)
+            },
+            err => reject(err)
+        );
+    } );
+}
+
+function selectRandomLocation(locations){
+    const n = locations.length;
+    const randomIndex = (Math.random() * (n - 1)).toFixed(0);
+    return locations[randomIndex];
+}
+
+export { getLocation, getData, selectRandomLocation}
