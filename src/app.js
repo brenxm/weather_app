@@ -1,6 +1,6 @@
 import "./styles.scss";
 import updateHtml from "./ui";
-import {selectRandomLocation, getLocation, getData} from "./helper.js";
+import {selectRandomLocation, getLocation, getData, ProcessedData} from "./helper.js";
 
 const form = document.querySelector('form');
 
@@ -53,5 +53,8 @@ async function onStartUp(){
     let apiData = await getData(url(loc));
     updateHtml(apiData);
     console.log(apiData);
+
+    const test = new ProcessedData(apiData);
+    console.log(test);
 }
 

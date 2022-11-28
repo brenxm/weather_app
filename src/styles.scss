@@ -71,8 +71,29 @@ body {
             }
     
         }
-    }
 
+        
+              
+    }
+          .future-cont {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+
+            > * {
+                background-color: rgba(0, 0, 0, 0.5);
+                width: 400px;
+                border-radius: 10px;
+                display: flex;
+                justify-content: left;
+                align-items: center;
+                gap: 10px;
+            }
+             .info-future-icon {
+                  width: 15px;
+              }
+          }
 }
 
 

@@ -85,7 +85,8 @@ export default function updateHtml(apiData){
     </div>
     `
 
-    // Get the list of hours of current day to display on HTML
+    //##### Get the list of hours of current day to display on HTML #####//
+
     let str = apiData.forecast.forecastday[0].hour.reduce(
         (accu, curr) => accu += `
         <div class='single-hour-cont'>
@@ -107,15 +108,24 @@ export default function updateHtml(apiData){
 
     scrollPosAtCurrentTime(timeCont, apiData.location.localtime);
 
-    // Display 7 days after current day
-    const futureDays = apiData.forecast.forecastday.splice(0, 1);
-    let accuStr = futureDays.reduce( (accu, curr)=>{
-        accu += `
+
+    //##### Display 7 days after current day #####//
+    const futureDays = apiData.forecast.forecastday.splice(1,7);
+
+    let accuStr = futureDays.reduce( (accu, curr)=>
+        accu + `
         <div class='single-future-item'>
-            <img src=${curr.day.condition.icon}>
+            <img class='future-icon'src=${curr.day.condition.icon}>
+            <span>${curr.date}</span>
+            <img class='info-future-icon' src=${rainIcon}
+            <span>${curr.day.daily_chance_of_rain}</span>
+            <img class='info-future-icon' src=${temperatureIcon}
+            <span>${curr.day.avgtemp_f}\u00b0F</span>
         </div>
         `
-    }, "")
+    , "");
+
+    document.querySelector('.future-cont').innerHTML = accuStr;
     
 }
 
