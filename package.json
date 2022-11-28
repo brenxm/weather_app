@@ -2,7 +2,6 @@
   "name": "weather_app",
   "version": "1.0.0",
   "description": "The Odin Project assignment app",
-  "experiments.topLevelAwait": true,
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
