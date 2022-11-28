@@ -16,6 +16,8 @@ const location = [
     "washington"
 ];
 
+let data;
+
 // Will prompt user to grant access to users location
 onStartUp();
 
@@ -29,13 +31,14 @@ async function updateContent(inputLoc){
     let apiData;
     try{
         apiData = await getData(url(inputLoc));
+        data = new ProcessedData(apiData);
     }
     catch(err) {
         return;
     }
 
     if ("error" in apiData) return;
-    updateHtml(apiData);
+    updateHtml(data);
 }
 
 async function onStartUp(){
@@ -51,10 +54,9 @@ async function onStartUp(){
         loc = selectRandomLocation(location);
     }
     let apiData = await getData(url(loc));
-    updateHtml(apiData);
+    data = new ProcessedData(apiData);
+    console.log(data);
     console.log(apiData);
-
-    const test = new ProcessedData(apiData);
-    console.log(test);
+    updateHtml(data)
 }
 

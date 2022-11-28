@@ -59,44 +59,44 @@ function pageStartUp(){
     }));
 }
 
-export default function updateHtml(apiData){
+export default function updateHtml(data){
     document.querySelector('.result-cont').innerHTML =
     `<div class='result-p1'>
-        <img class='icon' src=${apiData.current.condition.icon}>
+        <img class='icon' src=${data.condition.icon}>
     </div>
     <div class='result-p2'>
         <span class='loc-time-text'>
-            ${apiData.location.localtime}
+            ${data.loc.time}
         </span>
         <span class='loc-text'>
-            ${apiData.location.name}, ${apiData.location.region} 
+            ${data.loc.name}, ${data.loc.region} 
         </span>
         <div class="time-cont">
         </div>
         <div class='forecast-cont'>
-            <h3>${apiData.current.condition.text}</h3>
+            <h3>${data.condition.current}</h3>
         </div>
             <div class='sub-info-cont'>
-            <img src=${temperatureIcon}> <span>${apiData.current.feelslike_f}\u00B0F</span>    
-            <img src=${windIcon}> <span>${apiData.current.gust_mph}mph</span>
-            <img src=${sunriseIcon}> <span>${apiData.forecast.forecastday[0].astro.sunrise}</span>    
-            <img src=${sunsetIcon}> <span>${apiData.forecast.forecastday[0].astro.sunset}</span>    
+            <img src=${temperatureIcon}> <span>${data.condition.temp}\u00B0F</span>    
+            <img src=${windIcon}> <span>${data.condition.sunset}mph</span>
+            <img src=${sunriseIcon}> <span>${data.condition.sunrise}</span>    
+            <img src=${sunsetIcon}> <span>${data.condition.sunset}</span>    
             </div
     </div>
     `
 
     //##### Get the list of hours of current day to display on HTML #####//
 
-    let str = apiData.forecast.forecastday[0].hour.reduce(
+    let str = data.hour.reduce(
         (accu, curr) => accu += `
         <div class='single-hour-cont'>
             <div>${curr.time.match(/.{5}$/g)}</div>
-            <img src=${curr.condition.icon}>
+            <img src=${curr.icon}>
             <div>
-                <img class='single-icon' src=${rainIcon}><span>${curr.chance_of_rain} %</span>
+                <img class='single-icon' src=${rainIcon}><span>${curr.chanceOfRain} %</span>
             </div>
             <div>
-                <img class='single-icon'src=${temperatureIcon}><span>${curr.feelslike_f} \u00B0F</span>
+                <img class='single-icon'src=${temperatureIcon}><span>${curr.temp} \u00B0F</span>
             </div>
         </div>
         `, ""
@@ -106,21 +106,20 @@ export default function updateHtml(apiData){
 
     timeCont.innerHTML = str;
 
-    scrollPosAtCurrentTime(timeCont, apiData.location.localtime);
+    scrollPosAtCurrentTime(timeCont, data.loc.time);
 
 
     //##### Display 7 days after current day #####//
-    const futureDays = apiData.forecast.forecastday.splice(1,7);
 
-    let accuStr = futureDays.reduce( (accu, curr)=>
+    let accuStr = data.days.reduce( (accu, curr)=>
         accu + `
         <div class='single-future-item'>
-            <img class='future-icon'src=${curr.day.condition.icon}>
+            <img class='future-icon'src=${curr.icon}>
             <span>${curr.date}</span>
             <img class='info-future-icon' src=${rainIcon}
-            <span>${curr.day.daily_chance_of_rain}</span>
+            <span>${curr.chanceOfRain}</span>
             <img class='info-future-icon' src=${temperatureIcon}
-            <span>${curr.day.avgtemp_f}\u00b0F</span>
+            <span>${curr.temp}\u00b0F</span>
         </div>
         `
     , "");

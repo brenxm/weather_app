@@ -1,4 +1,4 @@
-import date from 'date-fns';
+import {format} from 'date-fns';
 
 async function getData(url){
     try {
@@ -33,38 +33,41 @@ function selectRandomLocation(locations){
 // making us use our own object property.
 class ProcessedData {
     constructor(apiData){
-        // Modify here if API has changed
+        // Modify the values here if API has changed
         this.loc = {
             name: apiData.location.name,
             region: apiData.location.region,
-            time: apiData.location.localtime,
+            time: format(new Date(apiData.location.localtime), "MMMM d yyyy hh:mm")
         };
 
         this.condition = {
             current: apiData.current.condition.text,
-            wind: apiData.current.gust_mph,
-            temp: apiData.current.feeslike_f,
+            wind: apiData.current.gust_mph + "mph",
+            temp: apiData.current.feelslike_f + '\u00B0f',
             icon: apiData.current.condition.icon,
+            sunrise: apiData.forecast.forecastday[0].astro.sunrise,
+            sunset: apiData.forecast.forecastday[0].astro.sunset,
         };
 
         this.hour = apiData.forecast.forecastday[0].hour.reduce( (accu, hr) => 
             [...accu, 
                 {
-                    chancOfRain: hr.chance_of_rain,
-                    temp: hr.feeslike_f,
+                    chanceOfRain: hr.chance_of_rain,
+                    temp: hr.feelslike_f,
                     currentCondtion: hr.condition.text,
                     icon: hr.condition.icon,
+                    time: hr.time
                 }
             ], []
         );
 
         this.days = apiData.forecast.forecastday.reduce( (accu, day)=>
             [...accu, {
-                date: day.date,
-                condtion: day.day.condition.icon,
+                date: format( new Date(day.date), 'MMMM d yyyy'),
+                icon: day.day.condition.icon,
                 chanceOfRain: day.day.daily_chance_of_rain,
-                temp: day.avgtemp_f,
-            }]
+                temp: day.day.avgtemp_f,
+            }], []
         )
     }
 }
