@@ -1,11 +1,10 @@
 
-import placeholderIcon from "./assets/placeholder.svg";
 import sunriseIcon from "./assets/sunrise.svg";
 import sunsetIcon from "./assets/sunset.svg";
 import rainIcon from "./assets/rain.svg";
 import temperatureIcon from "./assets/temperature.svg";
 import windIcon from "./assets/wind.svg";
-
+import snowIcon from "./assets/snow_icon.svg";
 
 function pageStartUp(){
     document.body.innerHTML =
@@ -13,7 +12,8 @@ function pageStartUp(){
         <div class='search-cont'>
             <form method='get' action=''>
                 <input class='loc-inp' name="loc-inp" required>
-                <input class='submit-btn' type='submit' value='Fetch Api'>
+                <button class='submit-btn'>
+                </button>
             </form>
         </div>
         <div class='result-cont'>
@@ -85,7 +85,7 @@ export default function updateHtml(data){
     </div>
     `
 
-    //##### Get the list of hours of current day to display on HTML #####//
+    //##### Get the list of hours of current day to display on DOM #####//
 
     let str = data.hour.reduce(
         (accu, curr) => accu += `
@@ -93,10 +93,16 @@ export default function updateHtml(data){
             <div>${curr.time.match(/.{5}$/g)}</div>
             <img src=${curr.icon}>
             <div>
-                <img class='single-icon' src=${rainIcon}><span>${curr.chanceOfRain} %</span>
+                <img class='single-icon' src=${rainIcon}>
+                <span>${curr.chanceOfRain} %</span>
             </div>
             <div>
-                <img class='single-icon'src=${temperatureIcon}><span>${curr.temp} \u00B0F</span>
+               <img class='single-icon'src=${snowIcon}>
+               <span>${curr.temp} \u00B0F</span>
+           </div>
+            <div>
+                <img class='single-icon'src=${temperatureIcon}>
+                <span>${curr.temp} \u00B0F</span>
             </div>
         </div>
         `, ""
@@ -116,27 +122,32 @@ export default function updateHtml(data){
         <div class='single-future-item'>
             <img class='future-icon'src=${curr.icon}>
             <span>${curr.date}</span>
-            <img class='info-future-icon' src=${rainIcon}
-            <span>${curr.chanceOfRain}</span>
-            <img class='info-future-icon' src=${temperatureIcon}
-            <span>${curr.temp}\u00b0F</span>
+            <div>
+                <img class='info-future-icon' src=${rainIcon}
+                <span>${curr.chanceOfRain}%</span>
+            </div>
+            <div>
+                <img class='info-future-icon' src=${snowIcon}
+                <span>${curr.temp}\u00b0f</span>
+            </div>
+            <div>
+                <img class='info-future-icon' src=${temperatureIcon}
+                <span>${curr.temp}\u00b0f</span>
+            </div>
         </div>
         `
     , "");
 
     document.querySelector('.future-cont').innerHTML = accuStr;
-    
 }
 
 
 // Set scroll position at current local time
 function scrollPosAtCurrentTime(elem, apiLocalTime){
-
     // Process api local time to multiplier
     const multiplier = apiLocalTime.match(/.{5}$/g)[0].split("").splice(0, 2).join('');
     const leftScroll = multiplier * 1252 / 17;
     elem.scrollLeft = leftScroll;
-
 }
 
 // Callback fnction for eventlisterns for btns for scrolling time

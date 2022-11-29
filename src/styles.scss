@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "mukta";
+    src: url("./assets/mukta_regular.ttf") format("woff2");
+}
+
 body {
     background-image: url("./assets/giftest.gif");
     background-color: rgba(0,0,0, 0.8);
@@ -5,6 +10,8 @@ body {
     background-repeat: no-repeat;
     color: white;
     transition: 3s;
+    font-family: "mukta";
+    letter-spacing: 1.3px;
 }
 
 .main {
@@ -21,10 +28,37 @@ body {
         display: flex;
         justify-content: center;
 
+        form {
+            background-color: rgb(236, 236, 236);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            padding-right: 4px;
+        }
+
         .loc-inp {
             border-radius: 20px;
             height: 20px;
             width: 230px;
+            border: none;
+            background-color: rgba(0,0,0, 0);
+        }
+
+        .loc-inp:focus {
+            outline: none;
+            background-color: transparent;
+        }
+
+        .submit-btn {
+            box-sizing: border-box;
+            background-image: url('./assets/search_icon.svg');
+            background-color: transparent;
+            height: 30px;
+            width: 30px;
+            border: none;
+            padding: 0;
+            transform: scaleX(-1);
         }
     }
 
@@ -56,17 +90,16 @@ body {
             width: 100%;
             padding-bottom: 10px;
             
-       
            
             > * {
                 border-radius: 8px;
+
                 .single-icon {
                     height: 20px;
                 }
             }
     
             .single-hour-cont {
-                width: 200px;
                 display: flex;
                 flex-direction: column;
                 justify-content: left;
@@ -75,6 +108,7 @@ body {
                     display: flex;
                     padding: 0 5px 0 5px;
                     font-size: 12px;
+                    width: 60px;
 
                     :nth-child(2) {
                         flex: 1;
@@ -100,13 +134,18 @@ body {
 
             > * {
                 background-image: linear-gradient(160deg, rgba(0,0,0, 0.6), transparent);
-                width: 400px;
+                padding: 0 10px;
                 border-radius: 10px;
                 display: flex;
                 justify-content: left;
                 align-items: center;
                 gap: 10px;
                 box-shadow: 0 0 7px rgba(0, 0, 0, 1);
+
+                > div {
+                    display: flex;
+                    gap: 5px;
+                }
             }
              .info-future-icon {
                   width: 15px;
@@ -130,7 +169,7 @@ body {
         }
 
         .loc-time-text {
-            font-size: 12px;
+            font-size: 15px;
         }
 
         > * {
