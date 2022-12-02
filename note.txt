@@ -1,3 +1,4 @@
 TODO
-2. Find better solution to display an array to html instead of using a reduce function to insert as child of parent.
-3. Create your own linting
+
+Implement loading.
+Display error to DOM when API failed
