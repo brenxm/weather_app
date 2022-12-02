@@ -91,10 +91,10 @@ export default function updateHtml(data){
         <div class='sub-info-cont'>
             <div>
                 <div>
-                    <img src=${rainIcon}> <span>${data.condition.chanceOfRain}\u00B0F</span>    
+                    <img src=${rainIcon}> <span>${data.days[0].chanceOfRain}\u00B0F</span>    
                 </div>
                 <div>
-                    <img src=${snowIcon}> <span>${data.condition.snow}\u00B0F</span>    
+                    <img src=${snowIcon}> <span>${data.days[0].snow}\u00B0F</span>    
                 </div>
                 <div>
                     <img src=${temperatureIcon}> <span>${data.condition.temp}\u00B0F</span>    
