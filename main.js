@@ -3707,10 +3707,10 @@ function updateHtml(data){
         <div class='sub-info-cont'>
             <div>
                 <div>
-                    <img src=${_assets_rain_svg__WEBPACK_IMPORTED_MODULE_2__}> <span>${data.condition.chanceOfRain}\u00B0F</span>    
+                    <img src=${_assets_rain_svg__WEBPACK_IMPORTED_MODULE_2__}> <span>${data.condition.chanceOfRain}%</span>    
                 </div>
                 <div>
-                    <img src=${_assets_snow_icon_svg__WEBPACK_IMPORTED_MODULE_5__}> <span>${data.condition.snow}\u00B0F</span>    
+                    <img src=${_assets_snow_icon_svg__WEBPACK_IMPORTED_MODULE_5__}> <span>${data.condition.snow}%</span>    
                 </div>
                 <div>
                     <img src=${_assets_temperature_svg__WEBPACK_IMPORTED_MODULE_3__}> <span>${data.condition.temp}\u00B0F</span>    
