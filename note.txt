@@ -1,4 +1,3 @@
 TODO
-1. Comeback to UI module and add scroll transition to time when buttons.
 2. Find better solution to display an array to html instead of using a reduce function to insert as child of parent.
 3. Create your own linting

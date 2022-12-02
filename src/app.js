@@ -16,6 +16,7 @@ const location = [
     "washington"
 ];
 
+// Setting data var as global - for each API call, only one api data is stored in the system (heap) and will override preexisting apidata if new query is requested
 let data;
 
 // Will prompt user to grant access to users location
@@ -55,8 +56,6 @@ async function onStartUp(){
     }
     let apiData = await getData(url(loc));
     data = new ProcessedData(apiData);
-    console.log(data);
-    console.log(apiData);
     updateHtml(data)
 }
 

@@ -5,6 +5,7 @@ import rainIcon from "./assets/rain.svg";
 import temperatureIcon from "./assets/temperature.svg";
 import windIcon from "./assets/wind.svg";
 import snowIcon from "./assets/snow_icon.svg";
+import {smoothScroll} from "./helper.js";
 
 function pageStartUp(){
     document.body.innerHTML =
@@ -55,10 +56,21 @@ function pageStartUp(){
 
 
     btns.forEach( btn => btn.addEventListener('click', (e)=>{
-        scrollBtn(e, hourlyDisplayCont);
+        if (e.target.classList.value =='btn-right'){
+
+            smoothScroll(()=> {
+                hourlyDisplayCont.scrollBy(2, 0);
+            }, 0.5, 200);
+            return;
+        }
+
+        smoothScroll(() => {
+            hourlyDisplayCont.scrollBy(-1.5, 0);
+        }, 0.5, 200);
     }));
 }
 
+// Update DOM for each good API query
 export default function updateHtml(data){
     document.querySelector('.result-cont').innerHTML =
     `<div class='result-p1'>
@@ -76,17 +88,34 @@ export default function updateHtml(data){
         <div class='forecast-cont'>
             <h3>${data.condition.current}</h3>
         </div>
-            <div class='sub-info-cont'>
-            <img src=${temperatureIcon}> <span>${data.condition.temp}\u00B0F</span>    
-            <img src=${windIcon}> <span>${data.condition.sunset}mph</span>
-            <img src=${sunriseIcon}> <span>${data.condition.sunrise}</span>    
-            <img src=${sunsetIcon}> <span>${data.condition.sunset}</span>    
-            </div
+        <div class='sub-info-cont'>
+            <div>
+                <div>
+                    <img src=${rainIcon}> <span>${data.condition.temp}\u00B0F</span>    
+                </div>
+                <div>
+                    <img src=${snowIcon}> <span>${data.condition.temp}\u00B0F</span>    
+                </div>
+                <div>
+                    <img src=${temperatureIcon}> <span>${data.condition.temp}\u00B0F</span>    
+                </div>
+            </div>
+            <div>
+                <div>
+                    <img src=${windIcon}> <span>${data.condition.wind}</span>
+                </div>
+                <div>
+                    <img src=${sunriseIcon}> <span>${data.condition.sunrise}</span>    
+                </div>
+                <div>
+                    <img src=${sunsetIcon}> <span>${data.condition.sunset}</span>    
+                </div>
+            </div>
+        </div
     </div>
     `
 
     //##### Get the list of hours of current day to display on DOM #####//
-
     let str = data.hour.reduce(
         (accu, curr) => accu += `
         <div class='single-hour-cont'>
@@ -98,7 +127,7 @@ export default function updateHtml(data){
             </div>
             <div>
                <img class='single-icon'src=${snowIcon}>
-               <span>${curr.temp} \u00B0F</span>
+               <span>${curr.snow}%</span>
            </div>
             <div>
                 <img class='single-icon'src=${temperatureIcon}>
@@ -116,7 +145,6 @@ export default function updateHtml(data){
 
 
     //##### Display 7 days after current day #####//
-
     let accuStr = data.days.reduce( (accu, curr)=>
         accu + `
         <div class='single-future-item'>
@@ -128,7 +156,7 @@ export default function updateHtml(data){
             </div>
             <div>
                 <img class='info-future-icon' src=${snowIcon}
-                <span>${curr.temp}\u00b0f</span>
+                <span>${curr.snow}%</span>
             </div>
             <div>
                 <img class='info-future-icon' src=${temperatureIcon}
@@ -141,24 +169,12 @@ export default function updateHtml(data){
     document.querySelector('.future-cont').innerHTML = accuStr;
 }
 
-
 // Set scroll position at current local time
 function scrollPosAtCurrentTime(elem, apiLocalTime){
     // Process api local time to multiplier
     const multiplier = apiLocalTime.match(/.{5}$/g)[0].split("").splice(0, 2).join('');
     const leftScroll = multiplier * 1252 / 17;
     elem.scrollLeft = leftScroll;
-}
-
-// Callback fnction for eventlisterns for btns for scrolling time
-function scrollBtn(e, container){
-    const GAP = 1252 / 17;
-
-    if (e.target.classList.value == "btn-right"){
-        container.scrollBy(73, 0);
-    } else {
-        container.scrollBy(-73, 0);
-    }
 }
 
 

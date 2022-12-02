@@ -10,7 +10,8 @@ async function getData(url){
     }
 }
 
-// Function to retrieve current location of user if user allowed by user
+
+// Function to retrieve current location of user if allowed permission
     //converting a callback based function to promise
 function getLocation(){
     return new Promise( (resolve, reject)=> {
@@ -29,8 +30,9 @@ function selectRandomLocation(locations){
     return locations[randomIndex];
 }
 
+
 // Data that is retrieved from API will be processed in this function
-// making us use our own object property.
+// making us use our own object property / hash
 class ProcessedData {
     constructor(apiData){
         // Modify the values here if API has changed
@@ -56,7 +58,8 @@ class ProcessedData {
                     temp: hr.feelslike_f,
                     currentCondtion: hr.condition.text,
                     icon: hr.condition.icon,
-                    time: hr.time
+                    time: hr.time,
+                    snow: hr.chance_of_snow,
                 }
             ], []
         );
@@ -66,10 +69,25 @@ class ProcessedData {
                 date: format( new Date(day.date), 'MMMM d yyyy'),
                 icon: day.day.condition.icon,
                 chanceOfRain: day.day.daily_chance_of_rain,
+                snow: day.day.daily_chance_of_snow,
                 temp: day.day.avgtemp_f,
             }], []
-        )
+        ).splice(1, 8);
     }
 }
 
-export { getLocation, getData, selectRandomLocation, ProcessedData}
+
+function smoothScroll( fn, delay, duration = 1000) {
+    let end = false;
+    setTimeout(() => {
+        end = true;
+    }, duration);
+
+    const intervals = setInterval( ()=>{
+        if (end) clearInterval(intervals);
+        fn();
+    }
+        , delay);
+}
+
+export { getLocation, getData, selectRandomLocation, ProcessedData, smoothScroll }
