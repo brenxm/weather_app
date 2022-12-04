@@ -1,4 +1,7 @@
 TODO
 
-Implement loading.
-Display error to DOM when API failed
+Refactor startup function
+  - Add loading icon while waiting for API query to be resolved
+    - if bad query, display "can't connect to API, refresh", return
+    
+   - Prompt User for accessing location
