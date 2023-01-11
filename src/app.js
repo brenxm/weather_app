@@ -5,7 +5,7 @@ import {selectRandomLocation, getLocation, getData, ProcessedData} from "./helpe
 const form = document.querySelector('form');
 
 //url of WEATHER api
-const url = (loc) => `https://api.weatherapi.com/v1/forecast.json?key=338055b098954be694d181131222111&q=${loc}&days=8&aqi=no&alerts=no`;
+const url = (loc) => `https://api.weatherapi.com/v1/forecast.json?key=008a2a2dcc704681bd714115231101&q=${loc}&days=8&aqi=no&alerts=no`;
 
 // Random selection to display as default if users location denied or pending permission
 const location = [
